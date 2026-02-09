@@ -93,6 +93,18 @@ tbody tr:hover {
   text-decoration: underline;
 }
 
+.player-link,
+.player-link:visited {
+  color: #e5e7eb;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.player-link:hover {
+  text-decoration: underline;
+}
+
 .top-eight {
   background: var(--top8);
   font-weight: 600;
@@ -176,6 +188,16 @@ th.sorted-desc::after {
   text-align: left;
 }
 
+/* Leaderboard player links */
+.leaderboard .player-link {
+  text-decoration: none;
+  color: #fff;
+}
+
+.leaderboard .player-link:hover {
+  text-decoration: underline;
+}
+
 
 .event-table {
   width: 100%;
@@ -224,6 +246,13 @@ th.sorted-desc::after {
   margin-bottom: 16px;
   font-size: 1.4rem;
   text-align: center;
+}
+
+.indented-example {
+  display: block;
+  margin-left: 1.5rem;
+  opacity: 0.85;
+  font-style: italic;
 }
 
 .events-card {
@@ -293,4 +322,73 @@ th.sorted-desc::after {
 .leaderboard a:hover,
 .leaderboard a:active {
   color: #fff !important;
+}
+
+/* Lifetime Ratings player links */
+.lifetime-ratings a,
+.lifetime-ratings a:link,
+.lifetime-ratings a:visited,
+.lifetime-ratings a:hover,
+.lifetime-ratings a:active {
+  color: #fff;
+}
+
+/* Lifetime Ratings – force player name links to white */
+.leaderboard-table a,
+.leaderboard-table a:link,
+.leaderboard-table a:visited,
+.leaderboard-table a:hover,
+.leaderboard-table a:active {
+  color: #fff !important;
+}
+
+.leaderboard-table a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Events page – force player name links to white */
+.events-page a,
+.events-page a:link,
+.events-page a:visited,
+.events-page a:hover,
+.events-page a:active {
+  color: #fff !important;
+}
+
+.events-page a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.notable-upsets-card {
+  margin-top: 2rem;
+}
+
+.elo-up {
+  color: #4caf50;
+  font-weight: 600;
+}
+
+.elo-down {
+  color: #f44336;
+  font-weight: 600;
+}
+
+/* Notable Upsets – left align Winner column */
+.notable-upsets-table th:first-child,
+.notable-upsets-table td:first-child {
+  text-align: left;
+  padding-left: 3.25rem;
+
+}
+
+.nav-inline-link {
+  color: #ffffff;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.nav-inline-link:hover {
+  color: #8fd3ff; /* soft accent */
 }
