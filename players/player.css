@@ -127,6 +127,18 @@ thead {
   color: #9ca3af;
 }
 
+/* .player-link,
+.player-link:visited {
+  color: #e5e7eb;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+} */
+
+.player-link:hover {
+  text-decoration: underline;
+}
+
 .match-event-section {
   margin-bottom: 32px;
 }
@@ -292,6 +304,22 @@ thead {
 
 .h2h-row:last-child {
   border-bottom: none;
+}
+
+.h2h-opponent.h2h-win a {
+  color: #22c55e; /* green */
+}
+
+.h2h-opponent.h2h-neutral a {
+  color: #eab308; /* yellow */
+}
+
+.h2h-opponent.h2h-loss a {
+  color: #ef4444; /* red */
+}
+
+.h2h-opponent.h2h-undefeated a {
+  font-weight: 700;
 }
 
 .player-summary {

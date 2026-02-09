@@ -332,15 +332,25 @@ function renderHeadToHead(matches) {
   const rows = Object.entries(records)
     .map(([opponent, r]) => {
       const total = r.win + r.loss + r.draw;
-      const winPct = total ? (r.win / total) * 100 : 0;
+      const winPct = total
+        ? ((r.win + r.draw * 0.5) / total) * 100
+        : 0;
+
+      let winClass = "h2h-neutral";
+      if (winPct > 50) winClass = "h2h-win";
+      else if (winPct < 50) winClass = "h2h-loss";
+
+      const undefeated = r.loss === 0 && total > 0;
 
       return {
         opponent,
         ...r,
         total,
-        winPct
+        winPct,
+        winClass
       };
     })
+    .filter(r => r.opponent !== "***Bye***") // ✅ EXCLUDE Bye
     .sort((a, b) => b.total - a.total);
 
   if (!rows.length) {
@@ -353,8 +363,6 @@ function renderHeadToHead(matches) {
   card.className = "head-to-head-card";
 
   card.innerHTML = `
-    <h2 class="section-title">Head-to-Head</h2>
-
     <div class="h2h-header">
       <div>Opponent</div>
       <div>Record</div>
@@ -367,7 +375,7 @@ function renderHeadToHead(matches) {
     row.className = "h2h-row";
 
     row.innerHTML = `
-      <div class="h2h-opponent">
+      <div class="h2h-opponent ${r.winClass} ${r.undefeated ? "h2h-undefeated" : ""}">
         <a href="index.html?player=${encodeURIComponent(r.opponent)}">
           ${r.opponent}
         </a>
@@ -387,7 +395,6 @@ function renderHeadToHead(matches) {
 
   container.appendChild(card);
 }
-
 
 loadMatchHistory(playerName);
 
