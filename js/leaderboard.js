@@ -11,6 +11,7 @@ const seasons = [
 ];
 
 const seasonSelect = document.getElementById("season-select");
+const titleEl = document.getElementById("leaderboard-title");
 const tbody = document.getElementById("table-body");
 // const uniqueSeasons = [...new Set(seasons)]
 //   .sort((a, b) => b.localeCompare(a));
@@ -44,15 +45,16 @@ seasons.forEach(season => {
 let currentPlayers = [];
 let currentSort = { key: "Points", direction: "desc" };
 
-// document.addEventListener("DOMContentLoaded", () => {
-//   populateSeasonDropdown();
+function updateLeaderboardTitle() {
+  const season = seasonSelect.value;
+  titleEl.textContent = `${season} Leaderboard`;
+}
 
-//   // Default season
-//   const defaultSeason = seasons[0];
-//   document.getElementById("season-select").value = defaultSeason;
+// Update on page load
+updateLeaderboardTitle();
 
-//   loadSeason(defaultSeason);
-// });
+// Update when season changes
+seasonSelect.addEventListener("change", updateLeaderboardTitle);
 
 function loadSeason(tabName) {
   const url = `https://opensheet.elk.sh/${SPREADSHEET_ID}/${encodeURIComponent(tabName)}`;
@@ -70,60 +72,74 @@ function loadSeason(tabName) {
 
       // 🔒 Always start sorted by Points (desc)
       currentSort = { key: "Points", direction: "asc" };
-      sortAndRender("Points");
+      sortAndRender();
     })
     .catch(() => {
       tbody.innerHTML =
         "<tr><td colspan='7'>Failed to load season</td></tr>";
     });
 }
-
-function sortAndRender(key) {
-  if (currentSort.key === key) {
-    currentSort.direction =
-      currentSort.direction === "asc" ? "desc" : "asc";
-  } else {
-    currentSort.key = key;
-    currentSort.direction = "desc";
-  }
-
-  currentPlayers.sort((a, b) => {
-    let aVal, bVal;
-
-    if (key === "WinPct") {
-      aVal = calculateWinPct(a);
-      bVal = calculateWinPct(b);
-    } else {
-      aVal = a[key];
-      bVal = b[key];
-    }
-
-    if (typeof aVal === "string") {
-      return currentSort.direction === "asc"
-        ? aVal.localeCompare(bVal)
-        : bVal.localeCompare(aVal);
-    }
-
-    return currentSort.direction === "asc"
-      ? aVal - bVal
-      : bVal - aVal;
+function sortPlayersForRanking(players) {
+  return [...players].sort((a, b) => {
+    if (b.Points !== a.Points) return b.Points - a.Points;
+    if (b.Wins !== a.Wins) return b.Wins - a.Wins;
+    if (b.Matches !== a.Matches) return b.Matches - a.Matches;
+    return a.Player.localeCompare(b.Player);
   });
+}
 
-// document.querySelectorAll("th").forEach(th =>
-//   th.classList.remove("sorted-asc", "sorted-desc")
-// );
+function applyCompetitionRanking(sortedPlayers) {
+  let rank = 1;
+  let prev = null;
 
-// const activeHeader = document.querySelector(
-//   `th[data-key="${key}"]`
-// );
+  return sortedPlayers.map((player, index) => {
+    if (
+      prev &&
+      player.Points === prev.Points &&
+      player.Wins === prev.Wins &&
+      player.Matches === prev.Matches
+    ) {
+      // Same stats → same rank
+      player.Rank = prev.Rank;
+    } else {
+      // New rank = index + 1 (competition ranking)
+      player.Rank = index + 1;
+    }
 
-// activeHeader.classList.add(
-//   currentSort.direction === "asc"
-//     ? "sorted-asc"
-//     : "sorted-desc"
-// );
+    prev = player;
+    return player;
+  });
+}
 
-  renderTable(currentPlayers);
+// function sortAndRender() {
+//   currentPlayers.sort((a, b) => {
+//     // 1️⃣ Points
+//     if (b.Points !== a.Points) {
+//       return b.Points - a.Points;
+//     }
+
+//     // 2️⃣ Wins
+//     if (b.Wins !== a.Wins) {
+//       return b.Wins - a.Wins;
+//     }
+
+//     // 3️⃣ Matches played
+//     if (b.Matches !== a.Matches) {
+//       return b.Matches - a.Matches;
+//     }
+
+//     // Optional final tiebreaker (alphabetical)
+//     return a.Player.localeCompare(b.Player);
+//   });
+
+//   renderTable(currentPlayers);
+// }
+
+function sortAndRender() {
+  const sorted = sortPlayersForRanking(currentPlayers);
+  const ranked = applyCompetitionRanking(sorted);
+
+  renderTable(ranked);
 }
 
 function renderTable(players) {
@@ -142,8 +158,8 @@ function renderTable(players) {
 
     tbody.insertAdjacentHTML(
       "beforeend",
-      `<tr class="${index < 8 ? "top-eight" : ""}">
-        <td>${index + 1}</td>
+      `<tr class="${p.Rank <= 8 ? "top-eight" : ""}">
+        <td>${p.Rank}</td>
         <td>
           <a class="player-link"
             href="players/index.html?player=${encodeURIComponent(p.Player)}">
@@ -157,6 +173,7 @@ function renderTable(players) {
         <td>${p.WinPct}</td>
       </tr>`
     );
+
   });
 }
 

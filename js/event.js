@@ -1,6 +1,13 @@
+
+
 const params = new URLSearchParams(window.location.search);
 const eventName = params.get("event");
+
+const list = document.getElementById("events-list");
+
 // const SPREADSHEET_ID = "1BUaE0fYx0trpWqPQkQpeGWYmAAJvUvcZKDS78HjE7N8";
+
+
 
 document.getElementById("event-title").textContent = eventName;
 
@@ -37,7 +44,7 @@ async function loadEvent() {
       `<tr>
         <td>${row.Rank}</td>
         <td>
-          <a href="../player.html?player=${encodeURIComponent(row.Name)}">
+          <a href="../players/index.html?player=${encodeURIComponent(row.Name)}">
             ${row.Name}
           </a>
         </td>
@@ -46,6 +53,49 @@ async function loadEvent() {
         <td>${row["OMW%"]}</td>
         <td>${row["GW%"]}</td>
         <td>${row["OGW%"]}</td>
+      </tr>`
+    );
+  });
+
+renderNotableUpsets(data);
+
+}
+
+function renderNotableUpsets(data) {
+  const card = document.getElementById("notable-upsets-card");
+  const tbody = document.getElementById("upsets-body");
+  if (!card || !tbody) return;
+
+  tbody.innerHTML = "";
+
+  const upsets = data
+    .filter(r => r.Winner && r.Loser && (r["Elo change"] || r["Δ ELO"]))
+    .sort((a, b) => {
+      const aElo = Number(a["Elo change"] ?? a["Δ ELO"]) || 0;
+      const bElo = Number(b["Elo change"] ?? b["Δ ELO"]) || 0;
+      return bElo - aElo; // high → low
+    });
+
+  // 🚫 No data → remove card entirely
+  if (!upsets.length) {
+    card.remove();
+    return;
+  }
+
+  // ✅ Data exists → render rows
+  upsets.forEach(r => {
+    const elo = Number(r["Elo change"] ?? r["Δ ELO"]) || 0;
+    const eloClass =
+      elo > 0 ? "elo-up" : elo < 0 ? "elo-down" : "";
+
+    tbody.insertAdjacentHTML(
+      "beforeend",
+      `<tr>
+        <td>${r.Winner} (${r["Winner Rating"]})</td>
+        <td>${r.Loser} (${r["Loser Rating"]})</td>
+        <td class="${eloClass}">
+          ${elo > 0 ? "+" : ""}${elo}
+        </td>
       </tr>`
     );
   });

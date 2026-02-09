@@ -40,7 +40,7 @@ async function loadLifetimeRatings() {
           <td>${row.Rank}</td>
           <td>${deltaDisplay}</td>
           <td>
-            <a href="index.html?player=${encodeURIComponent(row.Player)}">
+            <a href="players/index.html?player=${encodeURIComponent(row.Player)}">
               ${row.Player}
             </a>
           </td>
