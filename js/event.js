@@ -1,7 +1,6 @@
-
-
 const params = new URLSearchParams(window.location.search);
 const eventName = params.get("event");
+const eventDisplayName = params.get("name"); 
 
 const list = document.getElementById("events-list");
 
@@ -9,7 +8,7 @@ const list = document.getElementById("events-list");
 
 
 
-document.getElementById("event-title").textContent = eventName;
+document.getElementById("event-title").textContent = eventDisplayName || eventName;
 
 if (!eventName) {
   console.error("No event specified in URL");
