@@ -13,28 +13,9 @@ const seasons = [
 const seasonSelect = document.getElementById("season-select");
 const titleEl = document.getElementById("leaderboard-title");
 const tbody = document.getElementById("table-body");
-// const uniqueSeasons = [...new Set(seasons)]
-//   .sort((a, b) => b.localeCompare(a));
 
-function populateSeasonDropdown(seasons) {
-  const select = document.getElementById("season-select");
-  if (!select) return;
-
-  // 🔥 Clear existing options FIRST
-  select.innerHTML = "";
-
-  // ✅ Remove duplicates
-  const uniqueSeasons = [...new Set(seasons)];
-
-  uniqueSeasons.forEach(season => {
-    const option = document.createElement("option");
-    option.value = season;
-    option.textContent = season;
-    select.appendChild(option);
-  });
-}
-
-// Build dropdown
+// Build dropdown - populate once
+seasonSelect.innerHTML = ""; // Clear any existing options from HTML
 seasons.forEach(season => {
   const option = document.createElement("option");
   option.value = season.tab;
@@ -111,29 +92,6 @@ function applyCompetitionRanking(sortedPlayers) {
   });
 }
 
-// function sortAndRender() {
-//   currentPlayers.sort((a, b) => {
-//     // 1️⃣ Points
-//     if (b.Points !== a.Points) {
-//       return b.Points - a.Points;
-//     }
-
-//     // 2️⃣ Wins
-//     if (b.Wins !== a.Wins) {
-//       return b.Wins - a.Wins;
-//     }
-
-//     // 3️⃣ Matches played
-//     if (b.Matches !== a.Matches) {
-//       return b.Matches - a.Matches;
-//     }
-
-//     // Optional final tiebreaker (alphabetical)
-//     return a.Player.localeCompare(b.Player);
-//   });
-
-//   renderTable(currentPlayers);
-// }
 
 function sortAndRender() {
   const sorted = sortPlayersForRanking(currentPlayers);
@@ -146,15 +104,6 @@ function renderTable(players) {
   tbody.innerHTML = "";
 
   players.forEach((p, index) => {
-// Insert cut line AFTER rank 8
-//    if (index === 8) {
-//      tbody.insertAdjacentHTML(
-//        "beforeend",
-//        `<tr class="cut-line">
-//          <td colspan="7">⬆ Top 8 Cut ⬆</td>
-//        </tr>`
-//      );
-//    }
 
     tbody.insertAdjacentHTML(
       "beforeend",
@@ -185,8 +134,4 @@ seasonSelect.addEventListener("change", e => {
   loadSeason(e.target.value);
 });
 
-// document.querySelectorAll("th[data-key]").forEach(header => {
-//   header.addEventListener("click", () => {
-//     sortAndRender(header.dataset.key);
-//   });
-// });
+
