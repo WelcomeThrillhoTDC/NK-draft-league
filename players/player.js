@@ -40,53 +40,71 @@ function parseSheetDate(dateStr) {
   return new Date(year, month - 1, day); // local time
 }
 
-orderedSeasons.forEach(async season => {
-  const url = `https://opensheet.elk.sh/${SPREADSHEET_ID}/${encodeURIComponent(season)}`;
-  const data = await fetch(url).then(res => res.json());
+// ✅ Load seasons sequentially to maintain order
+async function loadSeasonHistory() {
+  for (const season of orderedSeasons) {
+    const url = `https://opensheet.elk.sh/${SPREADSHEET_ID}/${encodeURIComponent(season)}`;
+    
+    try {
+      const data = await fetch(url).then(res => res.json());
+      const row = data.find(p => p.Player === playerName);
+      
+      if (!row) continue;
 
-  const row = data.find(p => p.Player === playerName);
-  if (!row) return;
+      const wins = Number(row.Wins) || 0;
+      const draws = Number(row.Draws) || 0;
+      const matches = Number(row.Matches) || 0;
+      const points = Number(row.Points) || 0;
 
-  const wins = Number(row.Wins) || 0;
-  const draws = Number(row.Draws) || 0;
-  const matches = Number(row.Matches) || 0;
-  const points = Number(row.Points) || 0;
+      const winPct =
+        matches > 0
+          ? ((wins / matches) * 100).toFixed(1)
+          : "0.0";
 
-  const winPct =
-    matches > 0
-      ? ((wins / matches) * 100).toFixed(1)
-      : "0.0";
+      careerTotals.Points += points;
+      careerTotals.Wins += wins;
+      careerTotals.Draws += draws;
+      careerTotals.Matches += matches;
 
-  careerTotals.Points += points;
-  careerTotals.Wins += wins;
-  careerTotals.Draws += draws;
-  careerTotals.Matches += matches;
+      historyBody.insertAdjacentHTML(
+        "beforeend",
+        `<tr>
+          <td>${season}</td>
+          <td>${points}</td>
+          <td>${wins}</td>
+          <td>${draws}</td>
+          <td>${matches}</td>
+          <td>${winPct}%</td>
+        </tr>`
+      );
 
-  historyBody.insertAdjacentHTML(
-    "beforeend",
-    `<tr>
-      <td>${season}</td>
-      <td>${points}</td>
-      <td>${wins}</td>
-      <td>${draws}</td>
-      <td>${matches}</td>
-      <td>${winPct}%</td>
-    </tr>`
-  );
+      // Update career stats
+      const careerWinPct =
+        careerTotals.Matches > 0
+          ? (((careerTotals.Wins) /
+              careerTotals.Matches) * 100).toFixed(1)
+          : "0.0";
 
-  // Update career stats
-  const careerWinPct =
-    careerTotals.Matches > 0
-      ? (((careerTotals.Wins) /
-          careerTotals.Matches) * 100).toFixed(1)
-      : "0.0";
+      const pointsEl = document.getElementById("points");
+      const winsEl = document.getElementById("wins");
+      const drawsEl = document.getElementById("draws");
+      const matchesEl = document.getElementById("matches");
+      const winpctEl = document.getElementById("winpct");
 
-  document.getElementById("points").textContent = careerTotals.Points;
-  document.getElementById("wins").textContent = careerTotals.Wins;
-  document.getElementById("draws").textContent = careerTotals.Draws;
-  document.getElementById("matches").textContent = careerTotals.Matches;
-  document.getElementById("winpct").textContent = careerWinPct + "%";
-});
+      if (pointsEl) pointsEl.textContent = careerTotals.Points;
+      if (winsEl) winsEl.textContent = careerTotals.Wins;
+      if (drawsEl) drawsEl.textContent = careerTotals.Draws;
+      if (matchesEl) matchesEl.textContent = careerTotals.Matches;
+      if (winpctEl) winpctEl.textContent = careerWinPct + "%";
+      
+    } catch (err) {
+      console.error(`Failed to load season: ${season}`, err);
+    }
+  }
+}
+
+// Call the async function
+loadSeasonHistory();
 
 function renderPlayerSummary(matches) {
   const summaryEl = document.getElementById("player-summary");
@@ -183,7 +201,7 @@ async function loadMatchHistory(playerName) {
           ${
             date
               ? `<div class="match-date">
-                  ${new parseSheetDate(date).toLocaleDateString(undefined, {
+                  ${new Date(parseSheetDate(date)).toLocaleDateString(undefined, {
                     year: "numeric",
                     month: "long",
                     day: "numeric"
@@ -382,7 +400,7 @@ function renderHeadToHead(matches) {
       </div>
 
       <div class="h2h-record">
-        ${r.win}–${r.loss}–${r.draw}
+        ${r.win}—${r.loss}—${r.draw}
       </div>
 
       <div class="h2h-winpct">
@@ -397,4 +415,3 @@ function renderHeadToHead(matches) {
 }
 
 loadMatchHistory(playerName);
-
