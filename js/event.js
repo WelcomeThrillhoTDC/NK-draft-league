@@ -1,3 +1,5 @@
+
+
 const params = new URLSearchParams(window.location.search);
 const eventName = params.get("event");
 const eventDisplayName = params.get("name"); 

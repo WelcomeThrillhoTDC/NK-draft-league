@@ -134,3 +134,4 @@ seasonSelect.addEventListener("change", e => {
   loadSeason(e.target.value);
 });
 
+
