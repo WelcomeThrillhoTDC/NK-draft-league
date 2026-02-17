@@ -51,6 +51,9 @@ function loadSeason(tabName) {
         Matches: Number(p.Matches) || 0
       }));
 
+      // Display champion info if available
+      displayChampionInfo(data);
+
       // 🔒 Always start sorted by Points (desc)
       currentSort = { key: "Points", direction: "asc" };
       sortAndRender();
@@ -59,6 +62,31 @@ function loadSeason(tabName) {
       tbody.innerHTML =
         "<tr><td colspan='7'>Failed to load season</td></tr>";
     });
+}
+
+function displayChampionInfo(data) {
+  const championInfoEl = document.getElementById("champion-info");
+  
+  // Look for champion data in the first row (assuming it's stored there)
+  const championRow = data.find(row => row.Champion || row.champion);
+  
+  if (championRow && (championRow.Champion || championRow.champion)) {
+    const championName = championRow.Champion || championRow.champion;
+    const championDraft = championRow["Champion Draft"] || championRow["champion draft"] || "";
+    
+    let html = `<p><strong>Champion:</strong> ${championName}`;
+    
+    if (championDraft) {
+      html += ` <a href="events/event.html?event=${encodeURIComponent(championDraft)}" class="final-draft-link">Final Draft</a>`;
+    }
+    
+    html += `</p>`;
+    championInfoEl.innerHTML = html;
+    championInfoEl.style.display = 'block';
+  } else {
+    championInfoEl.innerHTML = '';
+    championInfoEl.style.display = 'none';
+  }
 }
 function sortPlayersForRanking(players) {
   return [...players].sort((a, b) => {
@@ -133,5 +161,3 @@ loadSeason(seasons[0].tab);
 seasonSelect.addEventListener("change", e => {
   loadSeason(e.target.value);
 });
-
-
