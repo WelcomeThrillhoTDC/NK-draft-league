@@ -57,6 +57,37 @@ label {
   padding-top: 20px;
 }
 
+.champion-info {
+  display: none;
+  text-align: center;
+  margin: 20px 0;
+  padding: 15px;
+  background: var(--panel);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.champion-info p {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.final-draft-link {
+  margin-left: 20px;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 4px 12px;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.final-draft-link:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
 
 /* =========================================
    NAVIGATION
