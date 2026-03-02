@@ -2,6 +2,11 @@
 const EVENTS_CONFIG = {
   draftLeagueEvents: [
     {
+      name: "Lorwyn Eclipsed Booster Draft (10232365)",
+      date: "February 20, 2026",
+      eventParam: "2-20-2026"
+    },    
+    {
       name: "Lorwyn Eclipsed Booster Draft 2 (10410749)",
       date: "February 13, 2026",
       eventParam: "2-13-2026"
@@ -55,4 +60,5 @@ const EVENTS_CONFIG = {
       eventParam: "1-16-2026"
     }
   ]
+
 };
