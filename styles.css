@@ -43,6 +43,11 @@ h2 {
   font-weight: 600;
 }
 
+h3 {
+  text-align: center;
+  font-weight: 300;
+}
+
 label {
   font-weight: 600;
   margin-right: 8px;
