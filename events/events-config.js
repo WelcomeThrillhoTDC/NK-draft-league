@@ -1,16 +1,44 @@
 // Events configuration
 const EVENTS_CONFIG = {
   draftLeagueEvents: [
+  ],
+  
+  otherEvents: [
+    {
+      name: "Teenage Mutant Ninja Turtles New Kawaii Prerelease (10434716))",
+      date: "March 1, 2026",
+      eventParam: "3-1-2026"
+    },
+    {
+      name: "Teenage Mutant Ninja Turtles New Kawaii Prerelease (10434715)",
+      date: "February 28, 2026",
+      eventParam: "2-28-2026-6PM"
+    },
+    {
+      name: "Teenage Mutant Ninja Turtles New Kawaii Prerelease (10434714)",
+      date: "February 28, 2026",
+      eventParam: "2-28-2026-12PM"
+    },
+    {
+      name: "Teenage Mutant Ninja Turtles New Kawaii Friday Prerelease (10434697)",
+      date: "February 27, 2026",
+      eventParam: "2-27-2026"
+    },
     {
       name: "Lorwyn Eclipsed Booster Draft (10232365)",
       date: "February 20, 2026",
       eventParam: "2-20-2026"
-    },    
+    },
     {
       name: "Lorwyn Eclipsed Booster Draft 2 (10410749)",
       date: "February 13, 2026",
       eventParam: "2-13-2026"
-    },
+    },    
+    {
+      name: "US RCQ (3) | 2025-26 Round 3 Lorwyn Eclipsed (10286343)",
+      date: "February 7, 2026",
+      eventParam: "2-7-2026"
+    },    
     {
       name: "Friday Night Magic Lorwyn Eclipsed Booster Draft (10232363)",
       date: "February 6, 2026",
@@ -25,15 +53,7 @@ const EVENTS_CONFIG = {
       name: "Friday Night Magic Lorwyn Eclipsed Booster Draft (10228441)",
       date: "January 23, 2026",
       eventParam: "1-23-2026"
-    }
-  ],
-  
-  otherEvents: [
-    {
-      name: "US RCQ (3) | 2025-26 Round 3 Lorwyn Eclipsed (10286343)",
-      date: "February 7, 2026",
-      eventParam: "2-7-2026"
-    },    
+    },
     {
       name: "Lorwyn Eclipsed Wednesday Midweek Mini Prerelease (10267707)",
       date: "January 21, 2026",
@@ -60,5 +80,4 @@ const EVENTS_CONFIG = {
       eventParam: "1-16-2026"
     }
   ]
-
 };
