@@ -1,6 +1,11 @@
 // Events configuration
 const EVENTS_CONFIG = {
   draftLeagueEvents: [
+    {
+      name: "Teenage Mutant Ninja Turtles Booster Draft (10518525)",
+      date: "March 6, 2026",
+      eventParam: "3-6-2026"
+    }
   ],
   
   otherEvents: [
