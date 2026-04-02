@@ -10,7 +10,12 @@ const EVENTS_CONFIG = {
   
   otherEvents: [
     {
-      name: "Teenage Mutant Ninja Turtles New Kawaii Prerelease (10434716))",
+      name: "US RCQ (3) | 2025-26 Round 3 Lorwyn Eclipsed Sealed (10474907)",
+      date: "March 7, 2026",
+      eventParam: "3-7-2026"
+    },
+    {
+      name: "Teenage Mutant Ninja Turtles New Kawaii Prerelease (10434716)",
       date: "March 1, 2026",
       eventParam: "3-1-2026"
     },
