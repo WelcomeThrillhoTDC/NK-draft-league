@@ -2,6 +2,11 @@
 const EVENTS_CONFIG = {
   draftLeagueEvents: [
     {
+      name: "It's Turtle Time! (10589278)",
+      date: "April 12, 2026",
+      eventParam: "4-12-2026"
+    },
+    {
       name: "It's Turtle Time! (10589277)",
       date: "April 5, 2026",
       eventParam: "4-5-2026"
