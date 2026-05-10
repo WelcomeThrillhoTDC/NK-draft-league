@@ -25,6 +25,11 @@ const EVENTS_CONFIG = {
   
   otherEvents: [
     {
+      name: "Chaos Booster Draft at New Kawaii (10518530)",
+      date: "April 10, 2026",
+      eventParam: "4-10-2026"
+    },
+    {
       name: "Chaos Booster Draft at New Kawaii (10518529)",
       date: "April 3, 2026",
       eventParam: "4-3-2026"
