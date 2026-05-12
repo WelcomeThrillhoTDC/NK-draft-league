@@ -7,21 +7,6 @@ const EVENTS_CONFIG = {
       eventParam: "4-12-2026"
     },
     {
-      name: "It's Turtle Time! (10589277)",
-      date: "April 5, 2026",
-      eventParam: "4-5-2026"
-    },
-    {
-      name: "It's Turtle Time! (10589276)",
-      date: "March 29, 2026",
-      eventParam: "3-29-2026"
-    },
-    {
-      name: "Teenage Mutant Ninja Turtles Booster Draft (10518526)",
-      date: "March 13, 2026",
-      eventParam: "3-13-2026"
-    },
-    {
       name: "Teenage Mutant Ninja Turtles Booster Draft (10518525)",
       date: "March 6, 2026",
       eventParam: "3-6-2026"
@@ -30,14 +15,29 @@ const EVENTS_CONFIG = {
   
   otherEvents: [
     {
+      name: "It's Turtle Time! (10589278)",
+      date: "April 12, 2026",
+      eventParam: "4-12-2026"
+    },
+    {
       name: "Chaos Booster Draft at New Kawaii (10518530)",
       date: "April 10, 2026",
       eventParam: "4-10-2026"
     },
     {
+      name: "It's Turtle Time! (10589277)",
+      date: "April 5, 2026",
+      eventParam: "4-5-2026"
+    },
+    {
       name: "Chaos Booster Draft at New Kawaii (10518529)",
       date: "April 3, 2026",
       eventParam: "4-3-2026"
+    },
+    {
+      name: "It's Turtle Time! (10589276)",
+      date: "March 29, 2026",
+      eventParam: "3-29-2026"
     },
     {
       name: "Chaos Booster Draft at New Kawaii (10518528)",
@@ -50,9 +50,19 @@ const EVENTS_CONFIG = {
       eventParam: "3-20-2026"
     },    
     {
+      name: "Teenage Mutant Ninja Turtles Booster Draft (10518526)",
+      date: "March 13, 2026",
+      eventParam: "3-13-2026"
+    },
+    {
       name: "US RCQ (3) | 2025-26 Round 3 Lorwyn Eclipsed Sealed (10474907)",
       date: "March 7, 2026",
       eventParam: "3-7-2026"
+    },
+    {
+      name: "Teenage Mutant Ninja Turtles Booster Draft (10518525)",
+      date: "March 6, 2026",
+      eventParam: "3-6-2026"
     },
     {
       name: "Teenage Mutant Ninja Turtles New Kawaii Prerelease (10434716)",
