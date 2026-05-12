@@ -1,19 +1,35 @@
 // Events configuration
 const EVENTS_CONFIG = {
   draftLeagueEvents: [
-    {
-      name: "It's Turtle Time! (10589278)",
-      date: "April 12, 2026",
-      eventParam: "4-12-2026"
-    },
-    {
-      name: "Teenage Mutant Ninja Turtles Booster Draft (10518525)",
-      date: "March 6, 2026",
-      eventParam: "3-6-2026"
-    }
+
   ],
   
   otherEvents: [
+    {
+      name: "Secrets of Strixhaven Tuesday Evening Mini Prerelease (10780735)",
+      date: "April 21, 2026",
+      eventParam: "4-21-2026"
+    },
+    {
+      name: "US RCQ (3) | 2025-26 Round 3 Secrets of Strixhaven (10823289)",
+      date: "April 19, 2026",
+      eventParam: "4-19-2026"
+    },
+    {
+      name: "Secrets of Strixhaven Evening Prerelease Prerelease (10747969)",
+      date: "April 18, 2026",
+      eventParam: "4-18-2026-6PM"
+    },
+    {
+      name: "Secrets of Strixhaven Morning Prerelease Prerelease (10747968)",
+      date: "April 18, 2026",
+      eventParam: "4-18-2026-12PM"
+    },
+    {
+      name: "Secrets of Strixhaven Friday Night Prerelease (10747829)",
+      date: "April 17, 2026",
+      eventParam: "4-17-2026"
+    },
     {
       name: "It's Turtle Time! (10589278)",
       date: "April 12, 2026",
