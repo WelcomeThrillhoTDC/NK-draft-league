@@ -1,7 +1,11 @@
 // Events configuration
 const EVENTS_CONFIG = {
   draftLeagueEvents: [
-
+    {
+      name: "Secrets of Strixhaven Booster Draft (10780706)",
+      date: "April 24, 2026",
+      eventParam: "4-24-2026"
+    }
   ],
   
   otherEvents: [
